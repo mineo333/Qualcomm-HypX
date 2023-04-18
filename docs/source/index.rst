@@ -9,15 +9,21 @@ Welcome to Qualcomm HypX's documentation!
 
 .. warning::
 
-   This is not official documentation. All of this knowledge has been gained through Reverse Engineering
+   This is not official documentation. All of this knowledge has been gained through reverse engineering
 
-This is the unofficial documentation for the Qualcomm HypX hypervisor. The goal is to uncover as much of the hypervisor as possible through reverse engineering, emulation, and other techniques.
+This is some unofficial documentation for the Qualcomm HypX hypervisor. The goal is to uncover as much of the hypervisor as possible through reverse engineering, emulation, and other techniques.
 
-If you're not familiar with AArch64 architecture and system programming, I recommend checking out :doc:`context/intro`
+If you're not familiar with AArch64 architecture and system programming, I recommend checking out :doc:`context/intro`. Otherwise, I would suggest starting at :doc:`general/intro`
 
 .. toctree::
-   :caption: Contents
+   :caption: Context
 
    context/intro
+
+.. toctree::
+   :caption: Documentation
+
+   general/intro
+   properties/property
 
 

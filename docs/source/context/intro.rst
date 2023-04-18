@@ -5,19 +5,28 @@ The purpose of this document is to cover the basics of AArch64 (Cortex-A) archit
 
 For ease of use, a lot of parallels will be drawn with x86 structures. 
 
+Registers
+----------
+
+* ``x0`` - ``x30`` - GP registers. ``x29`` is typically the frame pointer while ``x30`` is the link register.
+* ``PSTATE`` - the Processor State register - contains information like comparision flags, the current stack pointer being used (``SP_EL0`` or ``SP_ELx``), as well as interrupt flags. 
+
+
 Exception Levels
 ------------------
 
 Exception Levels are the equivalent of privliege levels or "rings" in x86. There are 4 exception levels:
 
 * EL0 - Userspace
-* El1 - Kernel
+* EL1 - Kernel
 * EL2 - Hypervisor
 * EL3 - Secure Monitor
 
 EL0 and EL1 work similar to how they do in x86. EL2 is where the hypervisor operates as opposed to the VMX/VMCS stuff that happens in x86. EL3 is where the secure monitor operates. The Secure Monitor serves as an entry point to the secure world. 
 
 In this project, we are primarily working at the EL2 level with some calls being made to EL3. 
+
+Each exception level has its own stack pointer ``SP_ELx``, its own page tables, ``TTBR0_ELx``(``EL1`` is a special case which I will not discuss here).
 
 System Registers
 ------------------
@@ -51,7 +60,13 @@ What happens when we transition states? When we transition states there are 3 sy
 Suppose we transiton to EL2, the ``PSTATE`` of the process before the transition is placed into ``SPSR_EL2``, the return address (``PC+4``) is placed in ``ELR_EL2``, and the reason why we go to EL2 is placed in ``ESR_EL2``. When we return using the ``eret`` instruction, we restore ``SPSR_EL2`` to ``PSTATE`` and ``ELR_EL2`` to PC. 
 
 
-Another important question is where do we transition? That answer is dependent on the base address in the register ``VBAR_ELx``
+Another important question is where do we transition? That answer is dependent on the address in the register ``VBAR_ELx``. Below is a table containing the offsets for each case:
+
+.. image:: ../assets/vbar.png
+
+For example, suppose we perform an ``hvc`` instruction. Because an ``hvc`` instruction is a synchronous exception, we jump to ``VBAR_EL2+0x400`` as we are coming from a lower EL in AArch64. 
+
+
 
 
 
