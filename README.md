@@ -1,4 +1,4 @@
-reversing Qualcomm Hypervisor (HypX)
+reversing the Qualcomm Hypervisor (HypX)
 
 ghidra_public contains the ghidra zip files for the hypervisor and devcfg
 
