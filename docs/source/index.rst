@@ -3,18 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Qualcomm HypX Reverse Engineering Effort's documentation!
+Welcome to Qualcomm HypX's documentation!
 ====================================================================
 
+
+.. warning::
+
+   This is not official documentation. All of this knowledge has been gained through Reverse Engineering
+
+This is the unofficial documentation for the Qualcomm HypX hypervisor. The goal is to uncover as much of the hypervisor as possible through reverse engineering, emulation, and other techniques.
+
+If you're not familiar with AArch64 architecture and system programming, I recommend checking out :doc:`context/intro`
+
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :caption: Contents
+
+   context/intro
 
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
