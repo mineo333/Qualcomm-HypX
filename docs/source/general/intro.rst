@@ -118,5 +118,16 @@ The idea behind this code is pretty simple: save all the GP registers, make the 
 
 ``uh_call`` takes in a few parameters. The first parameter is the app ID. This is the app that will be called. The second is the command ID. This is the operation being requested from the app. Unfortuantely, the command ID is only really documented for RKP. We can use context clues to determine a few of the KDP ones, but HDM is almost entirely undocumented. We will discuss these command IDs in the each app's page. 
 
-The fundamental goal of this reversing is to understand what happens when ``smc`` is called. 
+The fundamental goal of this reversing is to understand what happens when ``smc`` is called.
+
+Getting the Binary, Basic Reversing
+-------------------------------------
+
+Getting the binary for the hypervisor is actually quite easy as it's bundled with the firmware. All we need to do is use a firmware downloading tool like SamFirm or Frija and download the firmware for our phone (SM-G9860, TGY). Unpacking the firmware, we will get 5 tar files. We can find the hypervisor binary in the BL archive. It's called hyp.mbn.lz4. 
+
+Lucky for us, this binary is a ELF, so we know its load address as well as its entrypoint - Unlike Exynos >:(
+
+There are a few key values we can glean from main. Firstly, the value of ``vbar_el2``. The value of ``vbar_el2`` is ``0x80093000``. 
+
+
 
