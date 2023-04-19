@@ -15,6 +15,8 @@ This is some unofficial documentation for the Qualcomm HypX hypervisor. The goal
 
 If you're not familiar with AArch64 architecture and system programming, I recommend checking out :doc:`context/intro`. Otherwise, I would suggest starting at :doc:`general/intro`
 
+Note all the research for this project was done an SM-G9860 with a firmware version of G9860ZCS3HWC1. 
+
 .. toctree::
    :caption: Context
 
