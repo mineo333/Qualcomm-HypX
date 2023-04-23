@@ -127,7 +127,31 @@ Getting the binary for the hypervisor is actually quite easy as it's bundled wit
 
 Lucky for us, this binary is a ELF, so we know its load address as well as its entrypoint - Unlike Exynos >:(
 
-There are a few key values we can glean from main. Firstly, the value of ``vbar_el2``. The value of ``vbar_el2`` is ``0x80093000``. 
+Note you can find a relatively up-to-date ghidra project `here <https://github.com/mineo333/Qualcomm-HypX/tree/main/ghidra_public>`_.
+
+There are a few key values we can glean from main. Firstly, the value of ``vbar_el2``. The value of ``vbar_el2`` is ``0x80093000``. This will be extremely useful when reversing the SMC call handler. 
+
+From here, there are 2 functions worth inspecting: ``hypx_register`` and ``sync_from_lower_el_aarch64``. 
+
+
+uh_call Handler
+-----------------
+
+The entrypoint for the uh_call handler (Among other things) is ``sync_from_lower_el_aarch64``. This is simply ``vbar_el2 + 0x400``. According to the * `esr_el2 documentation page <https://developer.arm.com/documentation/ddi0601/2022-03/AArch64-Registers/ESR-EL2--Exception-Syndrome-Register--EL2->`_, the EC value for an SMC is ``0b010111`` or ``0x17``.
+
+This function is massive. However, the function care about is the call to ``dispatch_uh_call_or_tz_call``. This actually makes the call to the various HypX apps. Within ``dispatch_uh_call_or_tz_call``, we make a call to the function pointer of ``uh_call_handler``. However, what is the value of this function pointer? To get the answer to that we need to understand HypX is registered.
+
+
+HypX Register
+----------------
+
+Registering HypX is a big part of how SMCs are handled. HypX registration happens in a function called ``hypx_register``. Within ``hypx_register``, the main registration occurs in a function pointer called ``hypx_setup_function``. The way this function pointer is retrieved is via the property subsystem. However, in short, this pointer points to ``0x80000000``. The function at this address (Also called ``hypx_setup_function``) sets the function pointer to ``uh_call_handler`` as well as a few other variables.
+
+
+
+
+
+
 
 
 
