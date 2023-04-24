@@ -7,7 +7,7 @@ HypX is the hypervisor of Samsung phones running the Qualcomm processor.
 What is HypX and what does it do?
 ----------------------------------
 
-As stated earlier, HypX is the Qualcomm hypervisor. HypX is a ultra-thin hypervisor (A micro-hypervisor) that doesn't do virtualization (At least as far as we're aware). Instead it serves as an entity above the kernel to provide kernel protections (Probably among other things). This is done via the uH interface. 
+Every Qualcomm Samsung phone has the standard Android Kernel + Android Userspace. However, to introduce more security, Samsung has introduced a defense-in-depth strategy. The first layer of this defense-in-depth strategy past the kernel is the hypervisor known as HypX. HypX is not a traditional hypervisor. Instead it is an ultra-thin hypervisor that acts as an entity above the kernel and serves to provide security within the kernel among other unknown functionality. The main way this security is provided is via the uH interface. 
 
 The uH interface is the kernel's interface to the hypervisor. The kernel-side of the uH interface is public because Samsung is required to publish their kernel source by GPL. The uH interface is mainly defined by uh.h in the kernel which has the following code:
 
